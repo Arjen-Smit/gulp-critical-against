@@ -8,8 +8,15 @@
   },
   "author": "Arjen Smit",
   "license": "MIT",
+  "scripts": {
+    "pretest": "jscs index.js test/ && jshint index.js test/"
+  },
   "bugs": {
     "url": "https://github.com/Arjen-Smit/gulp-critical-against/issues"
   },
-  "homepage": "https://github.com/Arjen-Smit/gulp-critical-against#readme"
+  "homepage": "https://github.com/Arjen-Smit/gulp-critical-against#readme",
+  "dependencies": {
+    "gulp-util": "^3.0.7",
+    "through2": "^2.0.0"
+  }
 }
