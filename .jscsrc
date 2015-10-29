@@ -1,5 +1,5 @@
 {
-  "validateIndentation": 2,
+  "validateIndentation": 4,
   "validateQuoteMarks": "'",
   "requireSpacesInFunctionExpression": {
     "beforeOpeningCurlyBrace": true,
