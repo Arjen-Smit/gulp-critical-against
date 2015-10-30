@@ -18,6 +18,7 @@
   "dependencies": {
     "criticalcss": "^0.6.1",
     "gulp-util": "^3.0.7",
+    "request": "^2.65.0",
     "through2": "^2.0.0"
   }
 }

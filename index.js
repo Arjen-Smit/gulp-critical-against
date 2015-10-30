@@ -3,38 +3,45 @@
 // through2 is a thin wrapper around node transform streams
 var through = require('through2');
 var gutil = require('gulp-util');
+var criticalcss = require('criticalcss');
+var path = require('request');
 var PluginError = gutil.PluginError;
 
-function prefixStream(prefixText) {
-    var stream = through();
-    // stream.write(prefixText);
-    return stream;
-}
-
 // Plugin level function(dealing with files)
-function gulpCriticalAgainst(prefixText) {
+function gulpCriticalAgainst(obj) {
 
-    if (!prefixText) {
-        throw new PluginError('gulp-critical-against', 'Missing prefix text!');
-    }
-    prefixText = new Buffer(prefixText); // allocate ahead of time
+    var url = obj.url;
+
+    console.log(url);
+
+    // if (!prefixText) {
+    //     throw new PluginError('gulp-critical-against', 'Missing prefix text!');
+    // }
+    // prefixText = new Buffer(prefixText); // allocate ahead of time
 
     
     return through.obj(function (file, enc, cb) {
     	
-        if (file.isNull()) {
+        if (file.isNull() || file.isStream()) {
             // return empty file
             return cb(null, file);
         }
         if (file.isBuffer()) {
-            console.log(file.contents);
-        	// console.log("B", file.contents);
-            // file.contents = Buffer.concat([prefixText, file.contents]);
+            criticalcss,getRules(file.contents, function(err, output) {
+                if (err) {
+                    throw new Error(err);
+                } else {
+                    criticalcss.findCritical(url, { rules: JSON.parse(output) }, function(err, output) {
+                        if (err) {
+                            throw new Error(err);
+                        } else {
+                            console.log(output);
+                        } 
+                    });
+                }
+            });
         }
-        if (file.isStream()) {
-        	// console.log("C");
-            // file.contents = file.contents.pipe(prefixStream(prefixText));
-        }
+        
         
         cb(null, file);
 
