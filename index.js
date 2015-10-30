@@ -7,7 +7,7 @@ var PluginError = gutil.PluginError;
 
 function prefixStream(prefixText) {
     var stream = through();
-    stream.write(prefixText);
+    // stream.write(prefixText);
     return stream;
 }
 
@@ -19,14 +19,15 @@ function gulpCriticalAgainst(prefixText) {
     }
     prefixText = new Buffer(prefixText); // allocate ahead of time
 
-    // Creating a stream through which each file will pass
+    
     return through.obj(function (file, enc, cb) {
-    	console.log(file);
+    	
         if (file.isNull()) {
             // return empty file
             return cb(null, file);
         }
         if (file.isBuffer()) {
+            console.log(file.contents);
         	// console.log("B", file.contents);
             // file.contents = Buffer.concat([prefixText, file.contents]);
         }
